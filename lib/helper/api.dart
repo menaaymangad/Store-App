@@ -6,9 +6,7 @@ import 'package:http/http.dart' as http;
 class Api {
   Future<dynamic> get({required String url, @required String? token}) async {
     Map<String, String> headers = {};
-    headers.addAll({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
+
     if (token != null) {
       headers.addAll({"Authorization": 'Bearer $token'});
     }
@@ -50,10 +48,13 @@ class Api {
     if (token != null) {
       headers.addAll({"Authorization": 'Bearer $token'});
     }
+    print('url=$url, token=$token, body=$body');
     http.Response response =
         await http.post(Uri.parse(url), body: body, headers: headers);
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      Map<String, dynamic> data = jsonDecode(response.body);
+      print(data);
+      return data;
     } else {
       throw Exception(
           'there an exception with status code${response.statusCode} with body${jsonDecode(response.body)}');

@@ -12,7 +12,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, UpdateProductPage.id);
+        Navigator.pushNamed(context, UpdateProductPage.id,arguments: productsModel);
       },
       child: Stack(
         clipBehavior: Clip.none,
